@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "The main container for the app.",
   "main": "index.js",
-  "license": "The Unlicense",
+  "license": "MIT",
   "scripts": {
     "serve": "webpack serve --config config/webpack.dev.js",
     "build": "webpack --config config/webpack.prod.js"
