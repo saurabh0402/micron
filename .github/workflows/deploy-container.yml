@@ -1,0 +1,36 @@
+name: Deploy Container
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'container/**'
+
+defaults:
+  run:
+    working-directory: 'container/**'
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to Repo
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install Dependencies
+        run: yarn
+      - name: Build Project
+        run: yarn build
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: eu-west-1
+      - name: Sync with S3
+        run: |
+          aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET }}/container/latest
+
