@@ -15,14 +15,12 @@ const mount = (root, { onNavigate, defaultHistory, initialPath }) => {
   ReactDom.render(
     <Router history={history}>
       <div>
-        <Link to="/">Marketing Home</Link>
-        <Link to="/pricing">Pricing</Link>
         <Switch>
-          <Route exact path="/pricing">
-            <h1> Pricing Page</h1>
+          <Route path="/auth/login">
+            <h1> Login Page! </h1>
           </Route>
-          <Route exact path="/">
-            <h1> Marketing Home! </h1>
+          <Route path="/auth/signup">
+            <h1> Signup Page! </h1>
           </Route>
         </Switch>
       </div>
@@ -42,7 +40,7 @@ const mount = (root, { onNavigate, defaultHistory, initialPath }) => {
 };
 
 if (process.env.NODE_ENV === 'development') {
-  const e = document.querySelector('#_marketing-root');
+  const e = document.querySelector('#_auth-root');
   if (e) {
     mount(e, {
       onNavigate: () => {},
